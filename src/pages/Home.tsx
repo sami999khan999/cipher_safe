@@ -3,7 +3,7 @@ import InputFiend from "../components/InputFiend";
 
 const Home = () => {
   return (
-    <div className="flex flex-col justify-center mt-8 md:10">
+    <div className="flex flex-col mt-8 min-h-screen text-green-950">
       <Background />
       <InputFiend />
     </div>
