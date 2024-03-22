@@ -20,7 +20,9 @@ const serverUrl = import.meta.env.VITE_SERVER;
 export const createUser = async (userData: newUserDataProps) => {
   try {
     await axios.post(`${serverUrl}api/user/new`, userData);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getAllPasswords = async (id?: string, currentPage?: number) => {
