@@ -1,30 +1,53 @@
-# React + TypeScript + Vite
+# CipherSafe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CipherSafe is a secure password manager with both front-end and back-end components. The front-end is built with React, while the back-end is powered by Node.js and Express.js, with MongoDB as the database.
 
-Currently, two official plugins are available:
+## Front-end
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The front-end of CipherSafe is built with modern web technologies including:
 
-## Expanding the ESLint configuration
+- **React**: A JavaScript library for building user interfaces.
+- **React Router**: Declarative routing for React applications.
+- **Tailwind CSS**: A utility-first CSS framework for rapidly building custom designs.
+- **Clerk**: Provides authentication and user management features for React applications.
+- **React Icons**: Library for including icons in React applications.
+- **axios**: HTTP client for making requests to the back-end.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Development Scripts
 
-- Configure the top-level `parserOptions` property like this:
+- `npm run dev`: Start the development server using Vite.
+- `npm run build`: Build the production-ready bundle using TypeScript and Vite.
+- `npm run lint`: Lint the codebase using ESLint.
+- `npm run preview`: Preview the production build using Vite.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Back-end
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The back-end of CipherSafe is built with Node.js and Express.js, utilizing the following technologies:
+
+- **Express.js**: A minimal and flexible Node.js web application framework.
+- **MongoDB**: A NoSQL database used to store user passwords and related data.
+- **Mongoose**: MongoDB object modeling for Node.js.
+- **CORS**: Middleware for enabling Cross-Origin Resource Sharing.
+- **dotenv**: Load environment variables from a `.env` file.
+
+### Development Scripts
+
+- `npm start`: Start the server in production mode.
+- `npm run build`: Compile TypeScript files to JavaScript.
+- `npm run watch`: Watch for changes and recompile TypeScript files.
+- `npm run dev`: Start the server in development mode using Nodemon.
+
+## Installation and Usage
+
+1. Clone the repository: `git clone https://github.com/yourusername/ciphersafe.git`
+2. Install dependencies for both front-end and back-end: `npm install` in both `frontend` and `backend` directories.
+3. Start the front-end development server: `npm run dev` in the `frontend` directory.
+4. Start the back-end development server: `npm run dev` in the `backend` directory.
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or pull requests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
