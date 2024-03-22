@@ -1,38 +1,45 @@
 # CipherSafe
 
-CipherSafe is a secure password manager with both front-end and back-end components. The front-end is built with React, while the back-end is powered by Node.js and Express.js, with MongoDB as the database.
+CipherSafe is a secure password manager application built using React for the frontend and Node.js/Express.js for the backend.
 
-## Front-end
+## Frontend
 
-The front-end of CipherSafe is built with modern web technologies including:
+The frontend of CipherSafe is built using React and Vite.
 
-- **React**: A JavaScript library for building user interfaces.
-- **React Router**: Declarative routing for React applications.
-- **Tailwind CSS**: A utility-first CSS framework for rapidly building custom designs.
-- **Clerk**: Provides authentication and user management features for React applications.
-- **React Icons**: Library for including icons in React applications.
-- **axios**: HTTP client for making requests to the back-end.
+### Features
 
-### Development Scripts
+- **Clerk React:** Integration for user authentication using Clerk. (`@clerk/clerk-react` v4.30.7)
+- **Axios:** HTTP client for making API requests. (`axios` v1.6.8)
+- **Env:** Environment variable loader. (`env` v0.0.2)
+- **Prop Types:** Runtime type checking for React props. (`prop-types` v15.8.1)
+- **React:** JavaScript library for building user interfaces. (`react` v18.2.0)
+- **React DOM:** Entry point to the React library for the DOM. (`react-dom` v18.2.0)
+- **React Hot Toast:** Toast notification library for React. (`react-hot-toast` v2.4.1)
+- **React Icons:** Icon library for React. (`react-icons` v5.0.1)
+- **React Router DOM:** Declarative routing for React.js. (`react-router-dom` v6.22.3)
+- **TypeScript:** Superset of JavaScript that adds static types. (`typescript` v5.2.2)
+- **Vite:** Opinionated web dev build tool that serves your code via native ES modules. (`vite` v5.1.6)
 
-- `npm run dev`: Start the development server using Vite.
-- `npm run build`: Build the production-ready bundle using TypeScript and Vite.
-- `npm run lint`: Lint the codebase using ESLint.
-- `npm run preview`: Preview the production build using Vite.
+## Backend
 
-## Back-end
+The backend of CipherSafe is built using Node.js and Express.js.
 
-The back-end of CipherSafe is built with Node.js and Express.js, utilizing the following technologies:
+### Features
 
-- **Express.js**: A minimal and flexible Node.js web application framework.
-- **MongoDB**: A NoSQL database used to store user passwords and related data.
-- **Mongoose**: MongoDB object modeling for Node.js.
-- **CORS**: Middleware for enabling Cross-Origin Resource Sharing.
-- **dotenv**: Load environment variables from a `.env` file.
+- **CORS:** Middleware for handling Cross-Origin Resource Sharing. (`cors` v2.8.5)
+- **Dotenv:** Load environment variables from a .env file. (`dotenv` v16.4.5)
+- **Express:** Web application framework for Node.js. (`express` v4.19.0)
+- **Mongoose:** MongoDB object modeling for Node.js. (`mongoose` v8.2.2)
+- **SVIX:** Library for sending push notifications. (`svix` v1.21.0)
+- **TypeScript:** Superset of JavaScript that adds static types. (`typescript` v5.4.3)
 
-### Development Scripts
+## Getting Started
 
-- `npm start`: Start the server in production mode.
-- `npm run build`: Compile TypeScript files to JavaScript.
-- `npm run watch`: Watch for changes and recompile TypeScript files.
-- `npm run dev`: Start the server in development mode using Nodemon.
+To get started with CipherSafe, follow these steps:
+
+### Backend
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/sami999khan999/cipher_safe_server
