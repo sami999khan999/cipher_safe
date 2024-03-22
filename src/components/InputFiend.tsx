@@ -1,10 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Logo from "./Logo";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import Table from "./Table";
+import Table, { formProps } from "./Table";
+import { createPassword, getAllPasswords } from "../utils/fetchApi";
+import { useUser } from "@clerk/clerk-react";
+import {
+  IoIosArrowDropleft,
+  IoIosArrowDropright,
+  IoIosArrowUp,
+} from "react-icons/io";
 
 const InputField = () => {
+  const user = useUser();
   const [isVisible, setIsVisible] = useState(false);
+  const [formArr, setFormArr] = useState<formProps[]>([]);
 
   const [form, setForm] = useState({
     site: "",
@@ -18,7 +27,10 @@ const InputField = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(form);
+    setFormArr([form, ...formArr]);
+
+    createPassword({ ...form, clerkId: user.user?.id });
+
     setForm({
       site: "",
       username: "",
@@ -26,23 +38,26 @@ const InputField = () => {
     });
   };
 
-  const formData = [
-    {
-      site: "Googlejdhfeuisfhuedhfusiehfuesuidhfuvusdhf",
-      username: "Sami",
-      password: "PASSWORD",
-    },
-    {
-      site: "Google",
-      username: "Sami",
-      password: "PASSWORD",
-    },
-    {
-      site: "Google",
-      username: "Sami",
-      password: "PASSWORD",
-    },
-  ];
+  useEffect(() => {
+    const fetchPasswords = async () => {
+      try {
+        const response = await getAllPasswords(user.user?.id);
+        console.log(response);
+        if (response) {
+          setFormArr(response);
+        }
+      } catch (error) {
+        console.error("Error fetching passwords:", error);
+      }
+    };
+
+    fetchPasswords();
+
+    // Cleanup function
+    return () => {
+      // Perform cleanup tasks if needed
+    };
+  }, [user.user?.id]);
 
   return (
     <>
@@ -112,8 +127,18 @@ const InputField = () => {
         </form>
       </div>
 
-      <div>
-        <Table formData={formData} />
+      <div className="wrapper w-[70rem]">
+        <Table formData={formArr} setFormData={setFormArr} />
+        <div className=" text-3xl  flex justify-end ">
+          <div className="space-x-4 mt-2 mx-5">
+            <button>
+              <IoIosArrowDropleft />
+            </button>
+            <button>
+              <IoIosArrowDropright />
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

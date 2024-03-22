@@ -1,20 +1,30 @@
 import { SignIn, SignUp, useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import { createUser, newUserDataProps } from "./utils/fetchApi";
 
 const App = () => {
   const user = useUser();
   const location = useLocation();
 
+  const newUserData: newUserDataProps = {
+    clerkId: user.user?.id ?? "",
+    username: user.user?.username || "",
+    email: user.user?.emailAddresses[0]?.emailAddress || "",
+    firstName: user.user?.firstName || "",
+    lastName: user.user?.lastName || "",
+  };
+
   const inAuthPage =
     location.pathname === "/sign-in" || location.pathname === "/sign-up";
 
   useEffect(() => {
-    console.log(user.user?.id);
-  }, [user]);
+    createUser(newUserData);
+  }, []);
 
   return (
     <>
@@ -39,6 +49,7 @@ const App = () => {
       </div>
 
       {!inAuthPage && <Footer />}
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 };

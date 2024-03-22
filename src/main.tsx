@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import App from "./App.tsx";
 import "./index.css";
 import { ClerkProvider } from "@clerk/clerk-react";
@@ -11,12 +11,13 @@ if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
+ReactDOM.render(
+  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
     <React.StrictMode>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <BrowserRouter>
         <App />
-      </ClerkProvider>
+      </BrowserRouter>
     </React.StrictMode>
-  </BrowserRouter>
+  </ClerkProvider>,
+  document.getElementById("root")
 );
