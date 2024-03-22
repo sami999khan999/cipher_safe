@@ -121,7 +121,7 @@ const InputField = () => {
               type="submit"
               className="text-black bg-green-500 flex justify-center items-center w-44 rounded-full py-2 gap-2 border border-green-900 hover:bg-green-400 duration-300"
             >
-              <img src="/public/add.svg" alt="add" className="w-8 h-8" />
+              <img src="/public/add2.svg" alt="add" className="w-8 h-8" />
               <p>Add password</p>
             </button>
           </div>

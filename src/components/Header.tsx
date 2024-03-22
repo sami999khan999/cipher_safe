@@ -4,8 +4,8 @@ import Logo from "./Logo";
 
 const Header = () => {
   return (
-    <nav className="bg-slate-800 ">
-      <div className="wrapper h-14 mx-auto px-4 flex justify-between items-center">
+    <nav className="bg-slate-800">
+      <div className="wrapper h-14 md:h-20 mx-auto px-4 flex justify-between items-center">
         <Logo />
 
         <div>

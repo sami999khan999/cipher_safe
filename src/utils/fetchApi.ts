@@ -15,18 +15,18 @@ export type newPasswordProps = {
   password: string;
 };
 
+const serverUrl = import.meta.env.VITE_SERVER;
+
 export const createUser = async (userData: newUserDataProps) => {
-  // try {
-  await axios.post("http://localhost:4000/api/user/new", userData);
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  try {
+    await axios.post(`${serverUrl}api/user/new`, userData);
+  } catch (error) {}
 };
 
 export const getAllPasswords = async (id?: string, currentPage?: number) => {
   try {
     const passwords = await axios.get(
-      `http://localhost:4000/api/password/${id}/?page=${currentPage}`
+      `${serverUrl}api/password/${id}/?page=${currentPage}`
     );
     return passwords.data;
   } catch (error) {
@@ -36,7 +36,7 @@ export const getAllPasswords = async (id?: string, currentPage?: number) => {
 
 export const createPassword = async (password: newPasswordProps) => {
   try {
-    await axios.post("http://localhost:4000/api/password/new", password);
+    await axios.post(`${serverUrl}api/password/new`, password);
   } catch (error) {
     console.log(error);
   }
@@ -44,7 +44,7 @@ export const createPassword = async (password: newPasswordProps) => {
 
 export const deletePasswoed = async (id: string) => {
   try {
-    await axios.delete(`http://localhost:4000/api/password/${id}`);
+    await axios.delete(`${serverUrl}api/password/${id}`);
   } catch (error) {
     console.log(error);
   }

@@ -87,7 +87,7 @@ const Table = ({
                       <td className="border px-2 py-2 whitespace-nowrap  w-48 ">
                         <div
                           onClick={() => copyToClipboard(data.site)}
-                          className="overflow-hidden cursor-pointer  hover:bg-green-400 rounded-full"
+                          className="overflow-hidden cursor-pointer  hover:bg-green-400 rounded-md"
                         >
                           {data.site}
                         </div>
@@ -95,7 +95,7 @@ const Table = ({
                       <td className="border px-2 py-2 whitespace-nowrap overflow-hidden">
                         <div
                           onClick={() => copyToClipboard(data.username)}
-                          className="overflow-hidden cursor-pointer  hover:bg-green-400 rounded-full"
+                          className="overflow-hidden cursor-pointer  hover:bg-green-400 rounded-md"
                         >
                           {data.username}
                         </div>
@@ -106,7 +106,7 @@ const Table = ({
                             copyToClipboard(data.password);
                             setVisiblePasswordId(index);
                           }}
-                          className="overflow-hidden cursor-pointer hover:bg-green-400 rounded-full"
+                          className="overflow-hidden cursor-pointer hover:bg-green-400 rounded-md"
                         >
                           {visiblePasswordId === index ? (
                             data.password
