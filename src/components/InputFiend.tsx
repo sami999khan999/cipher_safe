@@ -38,6 +38,22 @@ const InputField = () => {
       username: "",
       password: "",
     });
+
+    const fetchPasswords = async () => {
+      try {
+        const response = await getAllPasswords(user.user?.id, currentPage);
+        console.log(response.totalePages);
+        if (response) {
+          setFormArr(response.passwords);
+          setTotalPages(response.totalePages);
+        }
+      } catch (error) {
+        console.error("Error fetching passwords:", error);
+      }
+      setLoading(false);
+    };
+
+    fetchPasswords();
   };
 
   useEffect(() => {
