@@ -23,10 +23,10 @@ export const createUser = async (userData: newUserDataProps) => {
   // }
 };
 
-export const getAllPasswords = async (id?: string) => {
+export const getAllPasswords = async (id?: string, currentPage?: number) => {
   try {
     const passwords = await axios.get(
-      `http://localhost:4000/api/password/${id}`
+      `http://localhost:4000/api/password/${id}/?page=${currentPage}`
     );
     return passwords.data;
   } catch (error) {

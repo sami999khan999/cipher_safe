@@ -1,9 +1,9 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import toast from "react-hot-toast";
-import EditModal from "./EditModal";
 import { deletePasswoed } from "../utils/fetchApi";
+import EditModal from "./EditModal";
 
 export interface formProps {
   // _id: string;
@@ -16,9 +16,15 @@ export interface formProps {
 const Table = ({
   formData,
   setFormData,
+
+  currentPage,
+  setCurrentPage,
 }: {
   formData: formProps[];
   setFormData: React.Dispatch<React.SetStateAction<formProps[]>>;
+  setTotalePages: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const [editIsOpen, setEditIsOpen] = useState<boolean>(false);
   const [visiblePasswordId, setVisiblePasswordId] = useState<number | null>(
@@ -32,14 +38,33 @@ const Table = ({
   };
 
   const deleteHandler = async (data: any) => {
-    console.log(data);
     await deletePasswoed(data._id);
     setFormData(formData.filter((item) => item.site !== data.site));
+
+    console.log(data);
+
+    if (currentPage > 1 && formData.length === 1) {
+      setCurrentPage((prev) => prev - 1); // Go back to the previous page
+    }
+
+    // const fetchPasswords = async () => {
+    //   try {
+    //     const response = await getAllPasswords(user.user?.id);
+
+    //     if (response) {
+    //       setFormData(response.passwords);
+    //       setTotalePages(response.totalePages);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching passwords:", error);
+    //   }
+    // };
+    // fetchPasswords();
   };
 
   return (
     <>
-      <div className="md:wrapper mx-auto  mt-6">
+      <div className="md:wrapper mx-auto mt-6">
         {formData.length > 0 ? (
           <>
             <h2 className="font-bold text-2xl px-2 py-2 text-green-950">
@@ -47,19 +72,19 @@ const Table = ({
             </h2>
 
             <div className="flex">
-              <table className="wrapper text-center  overflow-hidden table-fixed rounded-xl">
+              <table className="wrapper text-left md:text-center text-sm md:text-xl overflow-hidden table-fixed rounded-xl">
                 <thead className="bg-green-600 border-2">
                   <tr>
-                    <th className="px-6 py-3">Site</th>
-                    <th className="px-6 py-3">Username</th>
-                    <th className="px-6 py-3">Password</th>
-                    <th className="px-6 py-3">Action</th>
+                    <th className="px-2 py-3">Site</th>
+                    <th className="px-2 py-3">Username</th>
+                    <th className="px-2 py-3">Password</th>
+                    <th className="px-2 py-3">Action</th>
                   </tr>
                 </thead>
                 <tbody className="bg-green-100 ">
                   {formData.map((data, index) => (
-                    <tr key={index}>
-                      <td className="border px-4 py-2 whitespace-nowrap  w-48 ">
+                    <tr key={index} className="w-8">
+                      <td className="border px-2 py-2 whitespace-nowrap  w-48 ">
                         <div
                           onClick={() => copyToClipboard(data.site)}
                           className="overflow-hidden cursor-pointer  hover:bg-green-400 rounded-full"
@@ -67,7 +92,7 @@ const Table = ({
                           {data.site}
                         </div>
                       </td>
-                      <td className="border px-4 py-2 whitespace-nowrap overflow-hidden">
+                      <td className="border px-2 py-2 whitespace-nowrap overflow-hidden">
                         <div
                           onClick={() => copyToClipboard(data.username)}
                           className="overflow-hidden cursor-pointer  hover:bg-green-400 rounded-full"
@@ -75,7 +100,7 @@ const Table = ({
                           {data.username}
                         </div>
                       </td>
-                      <td className="border px-4 py-2 whitespace-nowrap overflow-hidden">
+                      <td className="border px-2 py-2 whitespace-nowrap overflow-hidden">
                         <div
                           onClick={() => {
                             copyToClipboard(data.password);
@@ -92,7 +117,7 @@ const Table = ({
                           )}
                         </div>
                       </td>
-                      <td className="border w-16 px-4 py-2 whitespace-nowrap overflow-hidden">
+                      <td className="border w-16 px-2 py-2 whitespace-nowrap overflow-hidden">
                         <div className="text-lg space-x-4">
                           <button
                             className="hover:text-green-700 duration-200"

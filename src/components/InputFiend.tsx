@@ -4,16 +4,17 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Table, { formProps } from "./Table";
 import { createPassword, getAllPasswords } from "../utils/fetchApi";
 import { useUser } from "@clerk/clerk-react";
-import {
-  IoIosArrowDropleft,
-  IoIosArrowDropright,
-  IoIosArrowUp,
-} from "react-icons/io";
+import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
+import Skeliton from "./Skeliton";
 
 const InputField = () => {
   const user = useUser();
   const [isVisible, setIsVisible] = useState(false);
   const [formArr, setFormArr] = useState<formProps[]>([]);
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [form, setForm] = useState({
     site: "",
@@ -27,6 +28,7 @@ const InputField = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting((prv) => !prv);
     setFormArr([form, ...formArr]);
 
     createPassword({ ...form, clerkId: user.user?.id });
@@ -41,23 +43,22 @@ const InputField = () => {
   useEffect(() => {
     const fetchPasswords = async () => {
       try {
-        const response = await getAllPasswords(user.user?.id);
-        console.log(response);
+        const response = await getAllPasswords(user.user?.id, currentPage);
+        console.log(response.totalePages);
         if (response) {
-          setFormArr(response);
+          setFormArr(response.passwords);
+          setTotalPages(response.totalePages);
         }
       } catch (error) {
         console.error("Error fetching passwords:", error);
       }
+      setLoading(false);
     };
 
     fetchPasswords();
 
-    // Cleanup function
-    return () => {
-      // Perform cleanup tasks if needed
-    };
-  }, [user.user?.id]);
+    return () => {};
+  }, [user.user?.id, currentPage, isSubmitting]);
 
   return (
     <>
@@ -127,19 +128,40 @@ const InputField = () => {
         </form>
       </div>
 
-      <div className="wrapper w-[70rem]">
-        <Table formData={formArr} setFormData={setFormArr} />
-        <div className=" text-3xl  flex justify-end ">
-          <div className="space-x-4 mt-2 mx-5">
-            <button>
-              <IoIosArrowDropleft />
-            </button>
-            <button>
-              <IoIosArrowDropright />
-            </button>
+      {loading ? (
+        <Skeliton />
+      ) : (
+        <div className="wrapper w-[70rem]">
+          <Table
+            formData={formArr}
+            setFormData={setFormArr}
+            setTotalePages={setTotalPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+          <div className=" text-3xl text-green-800 flex justify-center">
+            {totalPages > 1 && (
+              <div className="space-x-14 mt-2 mx-5 flex bg-green-100 p-2 rounded-md ">
+                <button
+                  onClick={() => setCurrentPage((prv) => prv - 1)}
+                  disabled={currentPage === 1}
+                >
+                  <IoIosArrowDropleft />
+                </button>
+                <span className="text-xl">
+                  {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() => setCurrentPage((prv) => prv + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  <IoIosArrowDropright />
+                </button>
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
