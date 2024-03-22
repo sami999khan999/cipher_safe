@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+# CipherSafe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CipherSafe is a secure password manager application built using React for the frontend and Node.js/Express.js for the backend.
 
-Currently, two official plugins are available:
+## Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The frontend of CipherSafe is built using React and Vite.
 
-## Expanding the ESLint configuration
+### Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Clerk React:** Integration for user authentication using Clerk. (`@clerk/clerk-react` v4.30.7)
+- **Axios:** HTTP client for making API requests. (`axios` v1.6.8)
+- **Env:** Environment variable loader. (`env` v0.0.2)
+- **Prop Types:** Runtime type checking for React props. (`prop-types` v15.8.1)
+- **React:** JavaScript library for building user interfaces. (`react` v18.2.0)
+- **React DOM:** Entry point to the React library for the DOM. (`react-dom` v18.2.0)
+- **React Hot Toast:** Toast notification library for React. (`react-hot-toast` v2.4.1)
+- **React Icons:** Icon library for React. (`react-icons` v5.0.1)
+- **React Router DOM:** Declarative routing for React.js. (`react-router-dom` v6.22.3)
+- **TypeScript:** Superset of JavaScript that adds static types. (`typescript` v5.2.2)
+- **Vite:** Opinionated web dev build tool that serves your code via native ES modules. (`vite` v5.1.6)
 
-- Configure the top-level `parserOptions` property like this:
+## Backend
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+The backend of CipherSafe is built using Node.js and Express.js.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Features
+
+- **CORS:** Middleware for handling Cross-Origin Resource Sharing. (`cors` v2.8.5)
+- **Dotenv:** Load environment variables from a .env file. (`dotenv` v16.4.5)
+- **Express:** Web application framework for Node.js. (`express` v4.19.0)
+- **Mongoose:** MongoDB object modeling for Node.js. (`mongoose` v8.2.2)
+- **SVIX:** Library for sending push notifications. (`svix` v1.21.0)
+- **TypeScript:** Superset of JavaScript that adds static types. (`typescript` v5.4.3)
+
+## Getting Started
+
+To get started with CipherSafe, follow these steps:
+
+### Backend
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/sami999khan999/cipher_safe_server
