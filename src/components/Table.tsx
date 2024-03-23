@@ -41,9 +41,7 @@ const Table = ({
 
   const deleteHandler = async (data: any) => {
     await deletePasswoed(data._id);
-    setFormData(formData.filter((item) => item.site !== data.site));
-
-    console.log(data);
+    // await setFormData(formData.filter((item) => item.site !== data.site));
 
     if (currentPage > 1 && formData.length === 1) {
       setCurrentPage((prev) => prev - 1); // Go back to the previous page
@@ -51,7 +49,7 @@ const Table = ({
 
     const fetchPasswords = async () => {
       try {
-        const response = await getAllPasswords(user.user?.id);
+        const response = await getAllPasswords(user.user?.id, currentPage);
 
         if (response) {
           setFormData(response.passwords);

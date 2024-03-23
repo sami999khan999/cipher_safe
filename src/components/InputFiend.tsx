@@ -24,7 +24,7 @@ const InputField = () => {
   const fetchPasswords = async () => {
     try {
       const response = await getAllPasswords(user.user?.id, currentPage);
-      // console.log(response.totalePages);
+
       if (response) {
         setFormArr(response.passwords);
         setTotalPages(response.totalePages);
