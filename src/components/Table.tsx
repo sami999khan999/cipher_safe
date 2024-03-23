@@ -2,8 +2,9 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { deletePasswoed } from "../utils/fetchApi";
+import { deletePasswoed, getAllPasswords } from "../utils/fetchApi";
 import EditModal from "./EditModal";
+import { useUser } from "@clerk/clerk-react";
 
 export interface formProps {
   // _id: string;
@@ -16,9 +17,9 @@ export interface formProps {
 const Table = ({
   formData,
   setFormData,
-
   currentPage,
   setCurrentPage,
+  setTotalePages,
 }: {
   formData: formProps[];
   setFormData: React.Dispatch<React.SetStateAction<formProps[]>>;
@@ -30,6 +31,7 @@ const Table = ({
   const [visiblePasswordId, setVisiblePasswordId] = useState<number | null>(
     null
   );
+  const user = useUser();
 
   const copyToClipboard = (content: string) => {
     navigator.clipboard.writeText(content);
@@ -47,19 +49,19 @@ const Table = ({
       setCurrentPage((prev) => prev - 1); // Go back to the previous page
     }
 
-    // const fetchPasswords = async () => {
-    //   try {
-    //     const response = await getAllPasswords(user.user?.id);
+    const fetchPasswords = async () => {
+      try {
+        const response = await getAllPasswords(user.user?.id);
 
-    //     if (response) {
-    //       setFormData(response.passwords);
-    //       setTotalePages(response.totalePages);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching passwords:", error);
-    //   }
-    // };
-    // fetchPasswords();
+        if (response) {
+          setFormData(response.passwords);
+          setTotalePages(response.totalePages);
+        }
+      } catch (error) {
+        console.error("Error fetching passwords:", error);
+      }
+    };
+    fetchPasswords();
   };
 
   return (

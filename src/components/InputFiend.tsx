@@ -14,7 +14,6 @@ const InputField = () => {
   const [loading, setLoading] = useState<Boolean>(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [form, setForm] = useState({
     site: "",
@@ -22,16 +21,26 @@ const InputField = () => {
     password: "",
   });
 
+  const fetchPasswords = async () => {
+    try {
+      const response = await getAllPasswords(user.user?.id, currentPage);
+      // console.log(response.totalePages);
+      if (response) {
+        setFormArr(response.passwords);
+        setTotalPages(response.totalePages);
+      }
+    } catch (error) {
+      console.error("Error fetching passwords:", error);
+    }
+    setLoading(false);
+  };
+
   const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting((prv) => !prv);
-    setFormArr([form, ...formArr]);
-
-    createPassword({ ...form, clerkId: user.user?.id });
 
     setForm({
       site: "",
@@ -39,42 +48,13 @@ const InputField = () => {
       password: "",
     });
 
-    const fetchPasswords = async () => {
-      try {
-        const response = await getAllPasswords(user.user?.id, currentPage);
-        console.log(response.totalePages);
-        if (response) {
-          setFormArr(response.passwords);
-          setTotalPages(response.totalePages);
-        }
-      } catch (error) {
-        console.error("Error fetching passwords:", error);
-      }
-      setLoading(false);
-    };
-
-    fetchPasswords();
+    await createPassword({ ...form, clerkId: user.user?.id });
+    await fetchPasswords();
   };
 
   useEffect(() => {
-    const fetchPasswords = async () => {
-      try {
-        const response = await getAllPasswords(user.user?.id, currentPage);
-        console.log(response.totalePages);
-        if (response) {
-          setFormArr(response.passwords);
-          setTotalPages(response.totalePages);
-        }
-      } catch (error) {
-        console.error("Error fetching passwords:", error);
-      }
-      setLoading(false);
-    };
-
     fetchPasswords();
-
-    return () => {};
-  }, [user.user?.id, currentPage, isSubmitting]);
+  }, [user.user?.id, currentPage]);
 
   return (
     <>
@@ -154,6 +134,7 @@ const InputField = () => {
             setTotalePages={setTotalPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
+            // setTotalePages={setTotalPages}
           />
           <div className=" text-3xl text-green-800 flex justify-center">
             {totalPages > 1 && (
